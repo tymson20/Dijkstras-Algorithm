@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(include)
 
 set(SOURCES 
-    src/node.cpp)
+    src/node.cpp
+    src/graph.cpp)
 
 add_executable(DijkstrasAlgorithm main.cpp ${SOURCES})
 
