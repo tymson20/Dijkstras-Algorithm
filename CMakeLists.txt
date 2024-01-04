@@ -2,7 +2,14 @@ cmake_minimum_required(VERSION 3.14)
 
 project(DijkstrasAlgorithm)
 
-add_executable(DijkstrasAlgorithm main.cpp)
+set(CMAKE_CXX_STANDARD 17)
+
+include_directories(include)
+
+set(SOURCES 
+    src/node.cpp)
+
+add_executable(DijkstrasAlgorithm main.cpp ${SOURCES})
 
 enable_testing()
 include(FetchContent)
