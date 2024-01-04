@@ -1,7 +1,10 @@
 #include <gtest/gtest.h>
+#include "graph.h"
 
-TEST(Test1, test) {
-    ASSERT_TRUE(true);
+TEST(NodeTest, AssigningProperId) {
+    Node n1, n2;
+    EXPECT_EQ(n1.getId(), 1);
+    EXPECT_EQ(n2.getId(), 2);
 }
 
 int main(int argc, char **argv) {
