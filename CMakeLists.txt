@@ -8,7 +8,8 @@ include_directories(include)
 
 set(SOURCES 
     src/node.cpp
-    src/graph.cpp)
+    src/graph.cpp
+    src/graphMatrix.cpp)
 
 add_executable(DijkstrasAlgorithm main.cpp ${SOURCES})
 

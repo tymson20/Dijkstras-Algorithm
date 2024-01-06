@@ -1,12 +1,8 @@
 #include <iostream>
-#include <algorithm>
-
-#include "..\include\graphMatrix.h"
+#include "graphMatrix.h"
 
 void GraphMatrix::addNode(Node* node) {
-    m_Nodes.push_back(node);
-    m_Map[node] = size();
-    m_NumberOfNodes++;
+    Graph::addNode(node);
 
     for (auto& row : m_AdjacencyMatrix) {
         row.push_back(0);
@@ -15,14 +11,36 @@ void GraphMatrix::addNode(Node* node) {
 }
 
 void GraphMatrix::addEdge(Node* startNode, Node* endNode, int edge) {
-    if (std::find(m_Nodes.cbegin(), m_Nodes.cend(), startNode) == m_Nodes.cend() || 
-    std::find(m_Nodes.cbegin(), m_Nodes.cend(), endNode) == m_Nodes.cend()) {
+    if (!isNodeBelong(startNode) || !isNodeBelong(endNode)) {
         std::cout << "Invalid Node pointer!" << std::endl;
         return;
     }
     std::size_t startIdx = m_Map[startNode], endIdx = m_Map[endNode];
     m_AdjacencyMatrix[startIdx][endIdx] = edge;
     m_AdjacencyMatrix[endIdx][startIdx] = edge;
+}
+
+Edge GraphMatrix::getEdge(Node* startNode, Node* endNode) const {
+    if (!isNodeBelong(startNode) || !isNodeBelong(endNode)) {
+        std::cout << "Invalid Node pointer!" << std::endl;
+        return -1;
+    }
+    std::size_t startIdx = m_Map.at(startNode), endIdx = m_Map.at(endNode);
+    return m_AdjacencyMatrix[startIdx][endIdx];
+}
+
+std::vector<Node*> GraphMatrix::getNeighbours(Node* node) const {
+    if (!isNodeBelong(node)) {
+        std::cout << "Invalid Node pointer!" << std::endl;
+        return std::vector<Node*>(1, 0);
+    }
+    std::size_t nodeIdx = m_Map.at(node);
+    std::vector<Node*> neighbours;
+    const std::vector<Edge>& row = m_AdjacencyMatrix[nodeIdx];
+    for (std::size_t i = 0; i < size(); i++) {
+        if (row[i] > 0) neighbours.push_back(m_Nodes[i]);
+    }
+    return neighbours;
 }
 
 void GraphMatrix::print() const {
