@@ -2,7 +2,7 @@
 #define NODE_H
 
 class Node {
-public:
+private:
     static int s_Id;
 
 public:
