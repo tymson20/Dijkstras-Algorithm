@@ -6,7 +6,7 @@ private:
     static int s_Id;
 
 public:
-    Node() : m_Id(s_Id) { s_Id++; }
+    explicit Node() : m_Id(s_Id) { s_Id++; }
 
     int getId() const { return m_Id; }
 

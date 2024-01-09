@@ -1,10 +1,10 @@
 #include <iostream>
 #include "graphMatrix.h"
 
-int dijkstraAlgorithm(const Graph& graph, Node* startNode, Node* destinationNode);
+std::vector<Node*> dijkstraAlgorithm(const Graph& graph, Node* startNode, Node* destinationNode, int* cost);
 
 int main(void) {
-    std::vector<Node> nodes = {{}, {}, {}, {}, {}, {}, {}, {}, {}};
+    std::vector<Node> nodes = {Node(), Node(), Node(), Node(), Node(), Node(), Node(), Node(), Node()};
     std::vector<Node*> nodesPointers(nodes.size());
     for (std::size_t i = 0; i < nodes.size(); i++) {
         nodesPointers[i] = &nodes[i];
@@ -20,8 +20,13 @@ int main(void) {
                               {0, 0, 0, 0, 9, 7, 5, 0, 0}, // 8
                               {0, 0, 4, 0, 0, 3, 0, 0, 0}};// 9
     GraphMatrix graph1(nodesPointers, adjacencyMatrix);
-    int distance = dijkstraAlgorithm(graph1, &nodes[2], &nodes[7]);
-    std::cout << "Distance = " << distance << std::endl;
-    
+
+    int distance;
+    std::vector<Node*> shortestPath = dijkstraAlgorithm(graph1, &nodes[8], &nodes[4], &distance);
+    std::cout << "Distance = " << distance << "\nShortest Path: ";
+    for (std::size_t i = 0; i < shortestPath.size() - 1; i++) {
+        std::cout << shortestPath[i]->getId() << ", ";
+    }
+    std::cout << shortestPath.back()->getId() << std::endl;
     return 0;
 }
